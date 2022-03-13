@@ -1,0 +1,35 @@
+﻿<Window x:Class="WPF_Stopwatches.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Stopwatches" xmlns:model="clr-namespace:WPF_Stopwatches.Model" xmlns:view="clr-namespace:WPF_Stopwatches.View"
+        mc:Ignorable="d"
+        Title="Stopwatches" Height="450" Width="800"
+        ResizeMode ="NoResize">
+    
+    <Grid>
+        <StackPanel DockPanel.Dock="Top"  Orientation="Horizontal" Margin="0,0,0,391">
+            <Button Command="{Binding NewTabCommand}" Margin="0,0,12,0">Добавить секундомер</Button>
+        </StackPanel>
+
+        <TabControl x:Name="timers" ItemsSource="{Binding Tabs}" Margin="0,28,0,0" SelectedIndex="0" >
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type model:DateTab}">
+                    
+                    <Frame Content="{Binding Frame}" NavigationUIVisibility="Hidden"/>
+                </DataTemplate>
+                
+            </TabControl.Resources>
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:ITab}" >
+                    <TextBlock>
+                        <Run Text="{Binding Name}"/>
+                        <Hyperlink Command="{Binding CloseCommand}">X</Hyperlink>
+                    </TextBlock>
+                </DataTemplate>
+                      
+            </TabControl.ItemTemplate>
+        </TabControl>
+    </Grid>
+</Window>
